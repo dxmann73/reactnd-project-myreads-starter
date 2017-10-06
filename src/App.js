@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import BookComponent from "./BookComponent";
+import BookshelfComponent from "./BookshelfComponent";
 
 class BooksApp extends React.Component {
     state = {
@@ -90,46 +90,13 @@ class BooksApp extends React.Component {
                 ) : (
                     <div className="list-books">
                         <div className="list-books-title">
-                            <h1>MyReads</h1>
+                            <h1>MyReads Application</h1>
                         </div>
                         <div className="list-books-content">
                             <div>
-                                <div className="bookshelf">
-                                    <h2 className="bookshelf-title">Currently Reading</h2>
-                                    <div className="bookshelf-books">
-                                        <ol className="books-grid">
-                                            {this.state.currentlyReading.map(b =>
-                                                <li key={b.id}>
-                                                    <BookComponent book={b} />
-                                                </li>
-                                            )}
-                                        </ol>
-                                    </div>
-                                </div>
-                                <div className="bookshelf">
-                                    <h2 className="bookshelf-title">Want to Read</h2>
-                                    <div className="bookshelf-books">
-                                        <ol className="books-grid">
-                                            {this.state.wantToRead.map(b =>
-                                                <li key={b.id}>
-                                                    <BookComponent book={b} />
-                                                </li>
-                                            )}
-                                        </ol>
-                                    </div>
-                                </div>
-                                <div className="bookshelf">
-                                    <h2 className="bookshelf-title">Read</h2>
-                                    <div className="bookshelf-books">
-                                        <ol className="books-grid">
-                                            {this.state.read.map(b =>
-                                                <li key={b.id}>
-                                                    <BookComponent book={b} />
-                                                </li>
-                                            )}
-                                        </ol>
-                                    </div>
-                                </div>
+                                <BookshelfComponent title="Currently Reading" books={this.state.currentlyReading} />
+                                <BookshelfComponent title="Want to Read" books={this.state.wantToRead} />
+                                <BookshelfComponent title="Read" books={this.state.read} />
                             </div>
                         </div>
                         <div className="open-search">
