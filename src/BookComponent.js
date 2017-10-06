@@ -7,14 +7,15 @@ class BookComponent extends Component {
             width: PropTypes.number.isRequired,
             height: PropTypes.number.isRequired,
             backgroundImage: PropTypes.string,
-            shelf: PropTypes.string.isRequired,
+            shelfId: PropTypes.string.isRequired,
             title: PropTypes.string.isRequired,
             authors: PropTypes.string.isRequired
-        })
+        }),
+        triggerMoveToShelf: PropTypes.func.isRequired
     };
 
     render = () => {
-        let {height, width, backgroundImage, shelf, title, authors} = this.props.book;
+        let {height, width, backgroundImage, shelfId, title, authors} = this.props.book;
 
         return <div className="book">
             <div className="book-top">
@@ -24,7 +25,7 @@ class BookComponent extends Component {
                     backgroundImage: backgroundImage
                 }}></div>
                 <div className="book-shelf-changer">
-                    <select defaultValue={shelf}>
+                    <select defaultValue={shelfId} onChange={(event) => this.props.triggerMoveToShelf(event.target.value)}>
                         <option value="none" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
