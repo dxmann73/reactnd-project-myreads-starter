@@ -88,6 +88,7 @@ class BooksApp extends React.Component {
                         </div>
                     </div>
                 } />
+
                 <Route exact path="/" render={() =>
                     <div className="list-books">
                         <div className="list-books-title">
@@ -101,7 +102,7 @@ class BooksApp extends React.Component {
                             </div>
                         </div>
                         <div className="open-search">
-                            <Link to="/search" className="close-search">Add a book</Link>
+                            <Link to="/search">Add a book</Link>
                         </div>
                     </div>
                 } />
