@@ -9,7 +9,7 @@ class BookshelfComponent extends Component {
     };
 
     render = () => {
-        let {shelfTitle, books} = this.props;
+        let {title, books} = this.props;
 
         // TODO we could still refactor out the <ol className="books-grid"> part, because it is used in the search as well. But this could be a trap- we would tightly couple markup and component implementation
         return <div className="bookshelf">
