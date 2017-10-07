@@ -22,23 +22,12 @@ class BooksApp extends React.Component {
     }
 
     moveToShelf = (bookToMove, toShelf) => {
-        let fromShelf = bookToMove.shelf;// old shelf
-        if (!this.state[fromShelf] && !this.state[toShelf]) {
-            console.log('server would validate if this shelf even exists, so we did no validation, would just re-fetch everything on error');// TODO
-            return;
-        }
-
-        // move book within the internal shelves
-        this.setState(prevState => {
-                let newState = {};
-                // remove from old...
-                newState[fromShelf] = prevState[fromShelf].filter(book => book.id !== bookToMove.id);
-                // ... and add to new shelf
-                bookToMove.shelf = toShelf;
-                prevState[toShelf].push(bookToMove);
-                newState[toShelf] = prevState[toShelf];
-                return newState;
-            }
+        let oldShelf = bookToMove.shelf;// old shelf
+        bookToMove.shelf = toShelf;
+        this.setState(prevState => ({
+                [oldShelf]: prevState[oldShelf].filter(book => book.id !== bookToMove.id),
+                [toShelf]: [...prevState[toShelf], bookToMove]
+            })
         );
     };
 
