@@ -22,7 +22,7 @@ class BookComponent extends Component {
                 <div className="book-cover" style={{
                     width: 128,
                     height: 190,
-                    backgroundImage: `url("${imageLinks.smallThumbnail}")`
+                    backgroundImage: `url("${imageLinks && imageLinks.smallThumbnail}")`
                 }}></div>
                 <div className="book-shelf-changer">
                     <select defaultValue={shelf || 'none'} onChange={(event) => this.props.triggerMoveToShelf(event.target.value)}>
