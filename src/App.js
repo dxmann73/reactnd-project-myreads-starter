@@ -22,12 +22,15 @@ class BooksApp extends React.Component {
     }
 
     moveToShelf = (bookToMove, toShelf) => {
-        let oldShelf = bookToMove.shelf;// old shelf
-        bookToMove.shelf = toShelf;
-        this.setState(prevState => ({
-                [oldShelf]: prevState[oldShelf].filter(book => book.id !== bookToMove.id),
-                [toShelf]: [...prevState[toShelf], bookToMove]
-            })
+        BooksAPI.update(bookToMove, toShelf).then(() => {
+                // 'update' gives back all the shelves, but only with book husks for some reason; so count this as success and handle state manually here.
+                let oldShelf = bookToMove.shelf;
+                bookToMove.shelf = toShelf;
+                this.setState(prevState => ({
+                    [oldShelf]: prevState[oldShelf].filter(book => book.id !== bookToMove.id),
+                    [toShelf]: [...prevState[toShelf], bookToMove]
+                }));
+            }
         );
     };
 

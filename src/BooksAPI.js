@@ -33,14 +33,11 @@ export const getAll = () =>
 
 
 /**
- * Update the "shelf" part of a book. This should set the property "shelf" on the book TODO check on the structure; API page doesn't really tell
+ * Update the "shelf" part of a book. This updates the property "shelf" of the book on the server.
+ * Returns a Promise which resolves to a JSON object containing all current shelves with the IDs of their respective books.
  *
- * book: `<Object>` containing at minimum an `id` attribute
- * shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]
- * Returns a Promise which resolves to a JSON object containing the response data of the POST request
- *
- * @param book
- * @param shelf
+ * @param book: `<Object>` containing at minimum an `id` attribute
+ * @param shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]
  */
 export const update = (book, shelf) =>
     fetch(`${api}/books/${book.id}`, {
