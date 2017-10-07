@@ -25,7 +25,7 @@ class BooksApp extends React.Component {
 
     moveToShelf = (bookToMove, toShelf) => {
         BooksAPI.update(bookToMove, toShelf).then(() => {
-                // 'update' gives back all the shelves, but only with book IDs for some reason; so count this as success and handle state manually here.
+                // 'update' returns all shelves, but only with the book IDs for some reason; so count this as success and handle state manually here.
                 let oldShelf = bookToMove.shelf || 'none';// BooksAPI gives null as a shelf ID, treat this as "none"
                 bookToMove.shelf = toShelf;
                 this.setState(prevState => ({
@@ -39,7 +39,11 @@ class BooksApp extends React.Component {
     render() {
         return (
             <div className="app">
-                <Route exact path="/search" render={() => <SearchComponent onChangeShelf={this.moveToShelf} />} />
+                <Route exact path="/search" render={() =>
+                    <SearchComponent onChangeShelf={this.moveToShelf}
+                                     allBooks={[...this.state.currentlyReading, ...this.state.wantToRead, ...this.state.read]} />
+                }
+                />
 
                 <Route exact path="/" render={() =>
                     <div className="list-books">

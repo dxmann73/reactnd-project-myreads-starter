@@ -51,7 +51,7 @@ export const update = (book, shelf) =>
 
 
 /**
- * Query all books for a certain string. Categories seem to exist somewhere, there is a fixed set of search terms TODO check on this
+ * Query all books for a certain string. Tere is a fixed set of search terms, see the README.md
  *
  * query: `<String>`
  * maxResults: `<Integer>` Due to the nature of the backend server, search results are capped at 20, even if this is set higher.

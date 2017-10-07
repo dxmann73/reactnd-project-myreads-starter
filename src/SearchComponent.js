@@ -6,7 +6,8 @@ import {Link} from "react-router-dom";
 
 class SearchComponent extends Component {
     static propTypes = {
-        onChangeShelf: PropTypes.func.isRequired
+        onChangeShelf: PropTypes.func.isRequired,
+        allBooks: PropTypes.array.isRequired
     };
 
     state = {
@@ -24,26 +25,23 @@ class SearchComponent extends Component {
             this.setState({
                 searchResponse: `Searching for ${searchTerm}, please wait...`
             });
-            this.searchTimer = setTimeout(
-                // since the error message is misleading ("Empty query" when searching for 'xyz'), we don't use it here.
-                // Normally there would be a user feedback component (a growl or something like this)
-                // TODO maybe figure it out in the API and give a clean result
-                () => BooksAPI
-                    .search(searchTerm)
-                    .then((results) => {
-                        // when an error occurs in the search, the service returns not with an empty set, but with a different response structure.
-                        if (results && Array.isArray(results)) {
-                            this.setState({
-                                searchResponse: `Found ${results.length} books for term '${searchTerm}'`,
-                                bookSearchResults: results
-                            });
-                        } else {
-                            this.setState({
-                                searchResponse: 'Nothing found, please refine your search. Note that not all keywords are picked up by the API. See the README.md for a list',
-                                bookSearchResults: []
-                            });
-                        }
-                    }),
+            this.searchTimer = setTimeout(() =>
+                    BooksAPI
+                        .search(searchTerm)
+                        .then((results) => {
+                            // when an error occurs in the search, the service returns not with an empty set, but with a different response structure.
+                            if (results && Array.isArray(results)) {
+                                this.setState({
+                                    searchResponse: `Found ${results.length} books for term '${searchTerm}'`,
+                                    bookSearchResults: this.updateShelfInfo(results)
+                                });
+                            } else {
+                                this.setState({
+                                    searchResponse: 'Nothing found, please refine your search. Note that not all keywords are picked up by the API. See the README.md for a list',
+                                    bookSearchResults: []
+                                });
+                            }
+                        }),
                 this.searchInputDelay);
         } else {
             this.setState({
@@ -52,6 +50,21 @@ class SearchComponent extends Component {
             });
         }
         e.preventDefault();
+    };
+
+    /**
+     * This is needed because search returns all books without shelf info (always null}, even if shelf info has been persisted per book. See BooksAPI comments.
+     * Thus, we need to pass all shelved books from the parent and match the shelf info found in those against each search result.
+     *
+     * @param bookResults results of the search
+     */
+    updateShelfInfo = (bookResults) => {
+        bookResults.forEach(book => {
+                let bookOnShelf = this.props.allBooks.find((shelvedBook) => shelvedBook.id === book.id);
+                book.shelf = bookOnShelf ? bookOnShelf.shelf : 'none';
+            }
+        );
+        return bookResults;
     };
 
     /** don't forget to clean up :-) */
