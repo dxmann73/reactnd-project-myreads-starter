@@ -8,8 +8,7 @@ class BookComponent extends Component {
             title: PropTypes.string.isRequired,
             authors: PropTypes.array.isRequired, // array of strings
             imageLinks: PropTypes.shape({
-                smallThumbnail: PropTypes.string.isRequired,
-                thumbnail: PropTypes.string.isRequired
+                smallThumbnail: PropTypes.string.isRequired
             })
         }),
         triggerMoveToShelf: PropTypes.func.isRequired

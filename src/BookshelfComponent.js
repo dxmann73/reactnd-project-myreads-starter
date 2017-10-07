@@ -19,7 +19,7 @@ class BookshelfComponent extends Component {
                 <ol className="books-grid">
                     {books.map(b =>
                         <li key={b.id}>
-                            <BookComponent book={b} triggerMoveToShelf={(toShelf) => this.props.onChangeShelf(b, toShelf)} />
+                            <BookComponent book={b} triggerMoveToShelf={(toShelfId) => this.props.onChangeShelf(b, toShelfId)} />
                         </li>
                     )}
                 </ol>

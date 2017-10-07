@@ -10,7 +10,7 @@ To run the bookstore server:
 * start the development server with `npm start`
 
 To run the tests:
-* start 'npm test' in the console
+* start `npm test` in the console
 
 ## Backend Server
 

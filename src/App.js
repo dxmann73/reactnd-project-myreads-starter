@@ -23,7 +23,7 @@ class BooksApp extends React.Component {
 
     moveToShelf = (bookToMove, toShelf) => {
         BooksAPI.update(bookToMove, toShelf).then(() => {
-                // 'update' gives back all the shelves, but only with book husks for some reason; so count this as success and handle state manually here.
+                // 'update' gives back all the shelves, but only with book IDs for some reason; so count this as success and handle state manually here.
                 let oldShelf = bookToMove.shelf;
                 bookToMove.shelf = toShelf;
                 this.setState(prevState => ({
